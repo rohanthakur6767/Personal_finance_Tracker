@@ -1,4 +1,3 @@
-// src/components/ExportCSV.js
 import React from 'react';
 import { useFinancialContext } from '../context/FinancialContext';
 
@@ -30,14 +29,15 @@ const ExportCSV = () => {
   };
 
   return (
-    <div className="my-6 flex justify-end">
+    <div className="flex justify-end">
       <button
         onClick={downloadCSV}
-        className="bg-gray-700 hover:bg-gray-600 
-                   text-white px-5 py-2 rounded-lg 
-                   font-medium transition shadow-md"
+        className="btn-secondary inline-flex items-center gap-2"
       >
-        ⬇️ Export Transactions (CSV)
+        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+        </svg>
+        Export CSV
       </button>
     </div>
   );

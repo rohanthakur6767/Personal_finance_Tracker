@@ -12,7 +12,7 @@ const Dashboard = () => {
     budgetLimits,
     updateMonthlyData,
     addTransaction,
-    resetData, // ✅ FIXED
+    resetData,
   } = useFinancialContext();
 
   const handleAdd = (type, amount) => {
@@ -38,78 +38,69 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="p-6 bg-gray-800 text-white rounded-lg shadow-lg">
+    <div className="dashboard-card p-6">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-3xl font-semibold">Dashboard</h2>
-
-        {/* ✅ Reset Button (proper place) */}
+        <h2 className="text-lg font-bold text-gray-900 tracking-tight">Dashboard</h2>
         <button
           onClick={() => {
             if (window.confirm('Reset all data? This cannot be undone.')) {
               resetData();
             }
           }}
-          className="bg-red-600 hover:bg-red-700 px-5 py-2 rounded-md font-medium transition"
+          className="btn-danger"
         >
           Reset All Data
         </button>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-
-        {/* Income Card */}
-        <div className="bg-gray-700 p-4 rounded-lg shadow-md hover:scale-105 transition">
-          <h3 className="text-xl font-semibold mb-2">Income</h3>
-          <p className="text-2xl">${income}</p>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="p-4 rounded-xl bg-surface-50 hover:bg-surface-100 transition-colors">
+          <p className="text-xs font-medium text-gray-500 mb-1">Income</p>
+          <p className="text-2xl font-bold text-gray-900">${income.toLocaleString()}</p>
           <button
             onClick={() => {
               const amount = prompt('Enter income amount:');
               if (amount) handleAdd('income', parseFloat(amount));
             }}
-            className="mt-4 bg-green-500 hover:bg-green-400 px-4 py-2 rounded-md"
+            className="mt-3 w-full py-2 rounded-xl text-sm font-semibold bg-emerald-600 text-white hover:bg-emerald-700 transition"
           >
             + Add Income
           </button>
         </div>
 
-        {/* Expenses Card */}
-        <div className="bg-gray-700 p-4 rounded-lg shadow-md hover:scale-105 transition">
-          <h3 className="text-xl font-semibold mb-2">Expenses</h3>
-          <p className="text-2xl">${expenses}</p>
+        <div className="p-4 rounded-xl bg-surface-50 hover:bg-surface-100 transition-colors">
+          <p className="text-xs font-medium text-gray-500 mb-1">Expenses</p>
+          <p className="text-2xl font-bold text-gray-900">${expenses.toLocaleString()}</p>
           <button
             onClick={() => {
               const amount = prompt('Enter expense amount:');
               if (amount) handleAdd('expenses', parseFloat(amount));
             }}
-            className="mt-4 bg-red-500 hover:bg-red-400 px-4 py-2 rounded-md"
+            className="mt-3 w-full py-2 rounded-xl text-sm font-semibold bg-red-600 text-white hover:bg-red-700 transition"
           >
             + Add Expense
           </button>
         </div>
 
-        {/* Savings Card */}
-        <div className="bg-gray-700 p-4 rounded-lg shadow-md hover:scale-105 transition">
-          <h3 className="text-xl font-semibold mb-2">Savings</h3>
-          <p className="text-2xl">${savings}</p>
-          <p className="text-sm text-gray-300">
-            Goal: ${budgetLimits.savingsGoal}
-          </p>
-          <p className="text-sm text-gray-300">
+        <div className="p-4 rounded-xl bg-surface-50 hover:bg-surface-100 transition-colors">
+          <p className="text-xs font-medium text-gray-500 mb-1">Savings</p>
+          <p className="text-2xl font-bold text-gray-900">${savings.toLocaleString()}</p>
+          <p className="text-xs text-gray-500 mt-1">
+            Goal: ${budgetLimits.savingsGoal.toLocaleString()} &middot;{' '}
             {budgetLimits.savingsGoal > 0
               ? ((savings / budgetLimits.savingsGoal) * 100).toFixed(1)
-              : 0}% of goal
+              : 0}%
           </p>
           <button
             onClick={() => {
               const amount = prompt('Enter savings amount:');
               if (amount) handleAdd('savings', parseFloat(amount));
             }}
-            className="mt-4 bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-md"
+            className="mt-3 w-full py-2 rounded-xl text-sm font-semibold bg-blue-600 text-white hover:bg-blue-700 transition"
           >
             + Add Savings
           </button>
         </div>
-
       </div>
     </div>
   );

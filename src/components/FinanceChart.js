@@ -1,6 +1,5 @@
-// src/components/FinanceChart.js
 import React from 'react';
-import { Pie } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   ArcElement,
@@ -23,10 +22,11 @@ const FinanceChart = () => {
         label: 'Amount',
         data: hasData ? [income, expenses, savings] : [1, 1, 1],
         backgroundColor: hasData
-          ? ['#3B82F6', '#EF4444', '#10B981']
-          : ['#374151', '#374151', '#374151'],
-        borderColor: ['#1F2937'],
-        borderWidth: 1,
+          ? ['#10B981', '#EF4444', '#6366F1']
+          : ['#f1f5f9', '#f1f5f9', '#f1f5f9'],
+        borderColor: '#ffffff',
+        borderWidth: 3,
+        hoverOffset: 6,
       },
     ],
   };
@@ -34,6 +34,7 @@ const FinanceChart = () => {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
+    cutout: '65%',
     animation: {
       animateRotate: true,
       duration: 1200,
@@ -42,35 +43,46 @@ const FinanceChart = () => {
       legend: {
         position: 'bottom',
         labels: {
-          color: '#E5E7EB',
-          font: {
-            size: 14,
-            weight: 'bold',
-          },
+          color: '#6B7280',
+          font: { size: 13, weight: '600', family: 'Inter' },
+          padding: 16,
+          usePointStyle: true,
+          pointStyleWidth: 8,
         },
       },
       tooltip: {
+        backgroundColor: '#1F2937',
+        titleFont: { family: 'Inter', weight: '600' },
+        bodyFont: { family: 'Inter' },
+        padding: 12,
+        cornerRadius: 10,
         callbacks: {
-          label: (ctx) => `$${ctx.raw}`,
+          label: (ctx) => ` $${ctx.raw.toLocaleString()}`,
         },
       },
     },
   };
 
   return (
-    <div className="bg-slate-900 text-slate-100 p-6 rounded-xl shadow-lg mb-6">
-      <h2 className="text-2xl font-extrabold mb-6 text-blue-300 border-b border-blue-600 pb-3 text-center tracking-wide">
-        📊 Finance Summary
-      </h2>
+    <div className="dashboard-card p-6">
+      <div className="mb-5">
+        <h2 className="text-lg font-bold text-gray-900 tracking-tight">Finance Breakdown</h2>
+        <p className="text-sm text-gray-500 mt-0.5">Distribution of your finances</p>
+      </div>
 
       {hasData ? (
-        <div className="w-full max-w-md h-[300px] mx-auto">
-          <Pie data={data} options={options} />
+        <div className="w-full h-[280px] flex items-center justify-center">
+          <Doughnut data={data} options={options} />
         </div>
       ) : (
-        <p className="text-center text-gray-400">
-          No financial data available yet.
-        </p>
+        <div className="flex flex-col items-center justify-center h-[280px] text-center">
+          <svg className="w-10 h-10 text-gray-300 mb-2" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
+          </svg>
+          <p className="text-sm text-gray-400 font-medium">No data available yet</p>
+          <p className="text-xs text-gray-400 mt-0.5">Add transactions to see your breakdown</p>
+        </div>
       )}
     </div>
   );

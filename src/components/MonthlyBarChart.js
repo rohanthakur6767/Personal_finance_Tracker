@@ -1,5 +1,3 @@
-// src/components/MonthlyBarChart.js
-
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import {
@@ -28,23 +26,23 @@ const MonthlyBarChart = () => {
       {
         label: 'Income',
         data: monthlyData.map((m) => m.income),
-        backgroundColor: '#3B82F6',
-        borderColor: '#93C5FD',
-        borderWidth: 1,
+        backgroundColor: '#10B981',
+        borderRadius: 4,
+        borderSkipped: false,
       },
       {
         label: 'Expenses',
         data: monthlyData.map((m) => m.expenses),
         backgroundColor: '#EF4444',
-        borderColor: '#FCA5A5',
-        borderWidth: 1,
+        borderRadius: 4,
+        borderSkipped: false,
       },
       {
         label: 'Savings',
         data: monthlyData.map((m) => m.savings),
-        backgroundColor: '#10B981',
-        borderColor: '#6EE7B7',
-        borderWidth: 1,
+        backgroundColor: '#6366F1',
+        borderRadius: 4,
+        borderSkipped: false,
       },
     ],
   };
@@ -55,31 +53,52 @@ const MonthlyBarChart = () => {
     plugins: {
       legend: {
         position: 'top',
+        align: 'end',
         labels: {
-          color: '#E5E7EB',
-          font: { size: 14 },
+          color: '#6B7280',
+          font: { size: 12, weight: '600', family: 'Inter' },
+          usePointStyle: true,
+          pointStyleWidth: 8,
+          padding: 16,
+        },
+      },
+      tooltip: {
+        backgroundColor: '#1F2937',
+        titleFont: { family: 'Inter', weight: '600' },
+        bodyFont: { family: 'Inter' },
+        padding: 12,
+        cornerRadius: 10,
+        callbacks: {
+          label: (ctx) => ` ${ctx.dataset.label}: $${ctx.raw.toLocaleString()}`,
         },
       },
     },
     scales: {
       x: {
-        ticks: { color: '#E5E7EB' },
-        grid: { color: 'rgba(255,255,255,0.1)' },
+        ticks: { color: '#9CA3AF', font: { size: 12, family: 'Inter' } },
+        grid: { display: false },
+        border: { display: false },
       },
       y: {
-        ticks: { color: '#E5E7EB' },
-        grid: { color: 'rgba(255,255,255,0.1)' },
+        ticks: {
+          color: '#9CA3AF',
+          font: { size: 12, family: 'Inter' },
+          callback: (value) => `$${value}`,
+        },
+        grid: { color: '#F3F4F6', drawBorder: false },
+        border: { display: false },
       },
     },
   };
 
   return (
-    <div className="bg-slate-900 text-slate-100 p-6 rounded-xl shadow-lg mb-6">
-      <h2 className="text-2xl font-extrabold mb-6 text-purple-300 border-b border-purple-600 pb-3 text-center tracking-wide">
-        📅 Monthly Financial Overview
-      </h2>
+    <div className="dashboard-card p-6">
+      <div className="mb-5">
+        <h2 className="text-lg font-bold text-gray-900 tracking-tight">Monthly Overview</h2>
+        <p className="text-sm text-gray-500 mt-0.5">Financial comparison across months</p>
+      </div>
 
-      <div className="w-full max-w-5xl h-[420px] mx-auto">
+      <div className="w-full h-[280px]">
         <Bar data={data} options={options} />
       </div>
     </div>
