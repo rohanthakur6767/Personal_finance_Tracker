@@ -1,4 +1,4 @@
-#LIVE her : https://personal-finance-tracker-dun-eight.vercel.app/
+#LIVE here : https://personal-finance-tracker-dun-eight.vercel.app/
 
 # Getting Started with Create React App
 
