@@ -9,6 +9,7 @@ import TransactionLog from './components/TransactionLog';
 import MonthlyTotals from './components/MonthlyTotals';
 import BudgetSettings from './components/BudgetSettings';
 import ExportCSV from './components/ExportCSV';
+import { Analytics } from '@vercel/analytics/react';
 
 const getCurrentMonth = () => new Date().getMonth();
 
@@ -180,6 +181,7 @@ function App() {
           <p className="text-xs text-gray-400">Data stored locally in your browser</p>
         </div>
       </footer>
+      <Analytics />
     </div>
   );
 }
